@@ -23,7 +23,7 @@ A simple [Pass](https://www.passwordstore.org/) launcher for [Dank Material Shel
 Clone this repository directly into your DMS plugins directory:
 
 ```bash
-git clone https://github.com/LouisKottmann/dms-pass.git $HOME/.config/DankMaterialShell/plugins/dms-pass
+git clone https://github.com/LouisKottmann/dms-pass.git ~/.config/DankMaterialShell/plugins/dms-pass
 ```
 
 Then reload plugins via settings or run:
