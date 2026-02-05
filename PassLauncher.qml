@@ -82,12 +82,10 @@ Item {
             const entry = action.substring(5)
             const cmd = "pass -c " + shellQuote(entry)
             
-            console.info("[dms-pass] Executing command: " + cmd)
-            
             Quickshell.execDetached(["sh", "-c", cmd])
             
             if (typeof ToastService !== "undefined") {
-                ToastService.showInfo("Pass", "Copying " + entry)
+                ToastService.showInfo("Pass: " + entry + " copied to clipboard")
             }
         }
     }
