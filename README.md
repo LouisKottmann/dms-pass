@@ -1,6 +1,6 @@
 # DMS Pass Plugin
 
-A simple [Pass](https://www.passwordstore.org/) launcher for [Dank Material Shell](https://danklinux.com/docs/dankmaterialshell/).
+A [Dank Material Shell](https://danklinux.com/docs/dankmaterialshell/) launcher plugin to fuzzy-search [Pass](https://www.passwordstore.org/) entries and copy them to the clipboard.
 
 ## Features
 

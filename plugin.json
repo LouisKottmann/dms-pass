@@ -9,5 +9,5 @@
   "trigger": "pass",
   "component": "./PassLauncher.qml",
   "settings": "./PassSettings.qml",
-  "permissions": ["process", "settings_read", "settings_write"]
+  "permissions": ["settings_read", "settings_write"]
 }
