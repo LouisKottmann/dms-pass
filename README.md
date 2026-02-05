@@ -2,6 +2,8 @@
 
 A [Dank Material Shell](https://danklinux.com/docs/dankmaterialshell/) launcher plugin to fuzzy-search [Pass](https://www.passwordstore.org/) entries and copy them to the clipboard.
 
+![DMS Pass Screenshot](screenshot.png)
+
 ## Features
 
 - **Fuzzy Search**: Quickly find passwords with non-contiguous search.
