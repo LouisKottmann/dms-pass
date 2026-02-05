@@ -28,5 +28,5 @@ git clone https://github.com/LouisKottmann/dms-pass.git ~/.config/DankMaterialSh
 
 Then reload plugins via settings or run:
 ```bash
-dms ipc call plugins reload dms-pass
+dms ipc call plugins reload dmsPass
 ```

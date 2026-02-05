@@ -5,7 +5,7 @@ import qs.Widgets
 
 PluginSettings {
     id: root
-    pluginId: "dms-pass"
+    pluginId: "dmsPass"
 
     StyledText {
         width: parent.width

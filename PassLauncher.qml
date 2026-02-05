@@ -11,7 +11,7 @@ Item {
 
     // Required properties
     property var pluginService: null
-    property string pluginId: "dms-pass"
+    property string pluginId: "dmsPass"
     property string trigger: "pass"
     
     // Internal properties
