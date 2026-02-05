@@ -17,7 +17,7 @@ PluginSettings {
 
     StyledText {
         width: parent.width
-        text: "Pass uses the standard GPG configuration. Ensure your gpg-agent is configured with a pinentry program (like pinentry-gnome3 or pinentry-qt) to allow unlocking your key from the GUI."
+        text: "Fuzzy-search Pass entries and copy them to the clipboard."
         font.pixelSize: Theme.fontSizeSmall
         color: Theme.surfaceVariantText
         wrapMode: Text.WordWrap

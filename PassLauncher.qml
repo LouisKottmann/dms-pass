@@ -4,6 +4,8 @@ import Quickshell.Io
 import qs.Services
 import qs.Common
 
+import "fuzzy.js" as Fuzzy
+
 Item {
     id: root
 
@@ -46,31 +48,62 @@ Item {
              return results
         }
         
-        const q = (query || "").toLowerCase().trim()
-        const limit = 50
+        // If no query, just return everything (or a subset)
+        if (!query || query.trim().length === 0) {
+            // Just show first 50 alphabetically
+             for (let i = 0; i < Math.min(50, _entries.length); i++) {
+                results.push(formatEntry(_entries[i]))
+            }
+            return results
+        }
 
+        const scored = []
         for (let i = 0; i < _entries.length; i++) {
             const entry = _entries[i]
-            if (!q || entry.toLowerCase().includes(q)) {
-                results.push({
-                    name: entry,
-                    icon: "material:vpn_key",
-                    comment: "Pass: " + entry,
-                    action: "pass:" + entry,
-                    // Category MUST match the Plugin Name ("Pass") for correct section grouping
-                    categories: ["Pass"],
-                    keywords: ["pass", entry]
-                })
+            const score = Fuzzy.fuzzyScore(query, entry)
+            if (score !== null) {
+                scored.push({ entry: entry, score: score })
             }
         }
         
-        results.sort((a, b) => {
-            const lenDiff = a.name.length - b.name.length
-            if (lenDiff !== 0) return lenDiff
-            return a.name.localeCompare(b.name)
-        })
+        // Sort by score (descending)
+        scored.sort((a, b) => b.score - a.score)
         
-        return results.slice(0, limit)
+        const limit = 50
+        for (let i = 0; i < Math.min(limit, scored.length); i++) {
+            results.push(formatEntry(scored[i].entry))
+        }
+        
+        return results
+    }
+    
+    function formatEntry(entry) {
+        // Example entry: "social/facebook/myuser"
+        // Title: "social/facebook"
+        // Comment: "myuser"
+        // If it's just "facebook", Title="facebook", Comment=""
+        
+        const lastSlash = entry.lastIndexOf('/')
+        let name = entry
+        let comment = ""
+        
+        if (lastSlash !== -1) {
+            name = entry.substring(0, lastSlash)
+            comment = entry.substring(lastSlash + 1)
+        } else {
+             // If no folder, usually it's "service" or "service.com"
+             // Often people do "service/username".
+             // If just "service", name="service", comment=""
+        }
+
+        return {
+            name: name,
+            icon: "material:vpn_key",
+            comment: comment,
+            action: "pass:" + entry,
+            categories: ["Pass"],
+            keywords: ["pass", entry]
+        }
     }
 
     function executeItem(item) {
@@ -119,6 +152,8 @@ Item {
             }
             onExited: function(code) {
                 console.info("[dms-pass] Indexing finished with code " + code + ". Found " + root._entries.length + " entries.")
+                // Initial sort is nice for the "no query" state
+                root._entries.sort()
                 root._indexing = false
                 root.itemsChanged()
                 destroy()
